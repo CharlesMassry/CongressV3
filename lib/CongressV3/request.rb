@@ -1,8 +1,8 @@
-require 'httparty'
+require 'net/http'
+require 'json'
 
 class CongressV3::Request
-  include HTTParty
-  base_uri 'https://congress.api.sunlightfoundation.com/'
+  BASE_URI = 'https://congress.api.sunlightfoundation.com'
   attr_accessor :route, :params
 
   def initialize(route, params)
@@ -10,19 +10,21 @@ class CongressV3::Request
       raise Exception.new("API Key MUST be set!")
     end
 
+    defaults = { page: 1, apikey: CongressV3::Config.api_key }
     @route = route
-    @params = { query: params }
-    @params[:query][:apikey] = CongressV3::Config.api_key
+    @params = defaults.merge(params)
   end
 
   def self.legislators(params={})
-    params[:page] ||= 1
     new("/legislators", params).request['results'].map do |legislator|
       CongressV3::Legislator.new(legislator)
     end
   end
 
   def request
-    self.class.get(route, params)
+    uri = URI(BASE_URI + route)
+    uri.query = URI.encode_www_form(params)
+    response = Net::HTTP.get(uri)
+    JSON.parse(response)
   end
 end
