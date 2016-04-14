@@ -2,7 +2,10 @@
 
 require "bundler/setup"
 require "CongressV3"
-
 require "pry"
+require 'dotenv'
+
+Dotenv.load
+CongressV3::Config.api_key = ENV["SUNLIGHT_API_KEY"]
 Pry.start
 

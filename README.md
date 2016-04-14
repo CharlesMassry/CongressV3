@@ -1,5 +1,8 @@
 # CongressV3
 
+[![Coverage Status](https://coveralls.io/repos/github/CharlesMassry/CongressV3/badge.svg?branch=master)](https://coveralls.io/github/CharlesMassry/CongressV3?branch=master)
+[![Build Status](https://travis-ci.org/CharlesMassry/CongressV3.svg?branch=master)](https://travis-ci.org/CharlesMassry/CongressV3)
+
 Easily access the CongressV3 API through Ruby
 
 ## Installation
@@ -20,7 +23,22 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+First configure with your API KEY from [Sunlight Foundation](http://sunlightfoundation.com/api/accounts/register/)
+
+Once you have your API KEY:
+
+```ruby
+CongressV3::Config.api_key = "MY_API_KEY"
+```
+ 
+Using the API is simple:
+
+```ruby
+CongressV3::Legislators.all
+# => [ #<CongressV3::Legislator:0x007fa3343989b8 @chamber="house" @in_office=true> ]
+```
+
+One limitations of the Sunlight API is it has a per page limit default to 20. You can take it to the max of 50 easily though `CongressV3::Legislators.all(per_page: 50)`. You can also add query parameters to further refine your criteria `CongressV3::Legislators.all()`
 
 ## Development
 
