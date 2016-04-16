@@ -16,15 +16,19 @@ class CongressV3::Request
   end
 
   def self.legislators(params={})
-    new("/legislators", params).request['results'].map do |legislator|
+    response = new("/legislators", params).request
+
+    response.results.map! do |legislator|
       CongressV3::Legislator.new(legislator)
     end
+
+    response
   end
 
   def request
     uri = URI(BASE_URI + route)
     uri.query = URI.encode_www_form(params)
     response = Net::HTTP.get(uri)
-    JSON.parse(response)
+    CongressV3::Response.new(JSON.parse(response))
   end
 end
