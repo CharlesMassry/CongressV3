@@ -1,5 +1,4 @@
 class CongressV3::Legislator
-
   def self.all(params={})
     CongressV3::Request.legislators(params)
   end
