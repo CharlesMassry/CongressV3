@@ -41,7 +41,15 @@ CongressV3::Legislators.all
 @results=[ #<CongressV3::Legislator:0x007fa3343989b8 @chamber="house" @in_office=true> ]>
 ```
 
-One limitations of the Sunlight API is it has a per page limit default to 20. You can take it to the max of 50 easily though `CongressV3::Legislators.all(per_page: 50)`. You can also add query parameters to further refine your criteria `CongressV3::Legislators.all(chamber: 'house')`
+For the Bill API you can even get the text of the bill if it is available
+
+```ruby
+CongressV3::Bill.all(bill_id: "hconres128-114").results.first.text
+# => "\n[Congressional Bills 114th Congress]\n[From the
+        U.S. Government Publishing Office]\n[H. Con. Res. 128 Introduced in House..."
+```
+
+One limitation of the Sunlight API is it has a per page limit default to 20. You can take it to the max of 50 easily though `CongressV3::Legislators.all(per_page: 50)`. You can also add query parameters to further refine your criteria `CongressV3::Legislators.all(chamber: 'house')`
 
 ## Development
 

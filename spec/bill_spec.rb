@@ -12,8 +12,8 @@ describe CongressV3::Bill do
 
   describe '#text' do
     it 'fetches the text of the bill' do
-      VCR.use_cassette('bills') do
-        @bills = CongressV3::Bill.all
+      VCR.use_cassette('bill_for_text') do
+        @bills = CongressV3::Bill.all(bill_id: "hconres128-114")
       end
       @bill = @bills.results.first
       VCR.use_cassette('bill_text') do
