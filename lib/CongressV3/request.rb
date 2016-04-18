@@ -1,5 +1,7 @@
 require 'net/http'
 require 'json'
+require 'nokogiri'
+require 'open-uri'
 
 class CongressV3::Request
   BASE_URI = 'https://congress.api.sunlightfoundation.com'
@@ -23,6 +25,31 @@ class CongressV3::Request
     end
 
     response
+  end
+
+  def self.bills(params)
+    response = new("/bills", params).request
+
+    response.results.map! do |bill|
+      CongressV3::Bill.new(bill)
+    end
+
+    response
+  end
+
+  def self.bill_search(params)
+    response = new("/bills/search", params).request
+
+    response.results.map! do |bill|
+      CongressV3::Bill.new(bill)
+    end
+
+    response
+  end
+
+  def self.bill_text(uri)
+    html = Nokogiri::HTML(open(uri))
+    html.css('body pre').text
   end
 
   def request

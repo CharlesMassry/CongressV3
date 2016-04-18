@@ -35,10 +35,13 @@ Using the API is simple:
 
 ```ruby
 CongressV3::Legislators.all
-# => [ #<CongressV3::Legislator:0x007fa3343989b8 @chamber="house" @in_office=true> ]
+# => #<CongressV3::Response:0x007fd26a0ef2b0
+@count=100,
+@page={"count"=>20, "per_page"=>20, "page"=>1},
+@results=[ #<CongressV3::Legislator:0x007fa3343989b8 @chamber="house" @in_office=true> ]>
 ```
 
-One limitations of the Sunlight API is it has a per page limit default to 20. You can take it to the max of 50 easily though `CongressV3::Legislators.all(per_page: 50)`. You can also add query parameters to further refine your criteria `CongressV3::Legislators.all()`
+One limitations of the Sunlight API is it has a per page limit default to 20. You can take it to the max of 50 easily though `CongressV3::Legislators.all(per_page: 50)`. You can also add query parameters to further refine your criteria `CongressV3::Legislators.all(chamber: 'house')`
 
 ## Development
 
