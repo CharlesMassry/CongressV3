@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'CongressV3/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "CongressV3"
+  spec.name          = "congress_v3"
   spec.version       = CongressV3::VERSION
   spec.authors       = ["charlesmassry"]
   spec.email         = ["me@charliemassry.com"]
