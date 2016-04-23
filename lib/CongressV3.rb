@@ -1,9 +1,9 @@
-require 'CongressV3/version'
-require 'CongressV3/config'
-require 'CongressV3/request'
-require 'CongressV3/response'
-require 'CongressV3/legislator'
-require 'CongressV3/bill'
+require 'congress_v3/version'
+require 'congress_v3/config'
+require 'congress_v3/request'
+require 'congress_v3/response'
+require 'congress_v3/legislator'
+require 'congress_v3/bill'
 
 module CongressV3
 end
