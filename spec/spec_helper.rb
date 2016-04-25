@@ -1,5 +1,5 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'CongressV3'
+require 'congress_v3'
 require "webmock/rspec"
 require "vcr"
 require 'dotenv'
