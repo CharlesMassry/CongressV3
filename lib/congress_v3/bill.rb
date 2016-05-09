@@ -21,4 +21,8 @@ class CongressV3::Bill
                 "No text for this bill"
               end
   end
+
+  def votes(params={})
+    @votes ||= CongressV3::Request.bill_votes(bill_id, params)
+  end
 end
