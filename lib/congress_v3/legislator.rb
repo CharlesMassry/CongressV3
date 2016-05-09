@@ -21,4 +21,8 @@ class CongressV3::Legislator
   def term
     Time.parse(term_start)...Time.parse(term_end)
   end
+
+  def votes(params={})
+    @votes ||= CongressV3::Request.legislator_votes(bioguide_id, params)
+  end
 end

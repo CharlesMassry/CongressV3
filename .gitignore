@@ -11,3 +11,4 @@
 .env
 /vcr_cassettes
 *.gem
+.DS_Store
