@@ -2,6 +2,7 @@ require 'net/http'
 require 'json'
 require 'nokogiri'
 require 'open-uri'
+require 'open_uri_redirections'
 
 class CongressV3::Request
   BASE_URI = 'https://congress.api.sunlightfoundation.com'
@@ -58,7 +59,7 @@ class CongressV3::Request
   end
 
   def self.bill_text(uri)
-    html = Nokogiri::HTML(open(uri))
+    html = Nokogiri::HTML(open(uri, allow_redirections: :all))
     html.css('body pre').text
   end
 
