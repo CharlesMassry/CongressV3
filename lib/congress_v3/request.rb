@@ -13,7 +13,7 @@ class CongressV3::Request
       raise Exception.new("API Key MUST be set!")
     end
 
-    defaults = { page: 1, apikey: CongressV3::Config.api_key }
+    defaults = { page: 1, apikey: CongressV3::Config.api_key, per_page: 50 }
     @route = route
     @params = defaults.merge(params)
   end
@@ -65,29 +65,10 @@ class CongressV3::Request
 
   def self.bill_votes(bill_id, params={})
     params[:bill_id] = bill_id
-    params[:fields] = "voters,chamber"
+    params[:fields] = "voter_ids,chamber,vote_type,required,result,voted_at"
     response = new('/votes', params).request
 
-    senators = []
-    representatives = []
-
-    response.results.each do |result|
-      chamber = result["chamber"]
-      if (chamber == "house" && representatives.empty?) || (chamber == "senate" && senators.empty?)
-        result["voters"].each do |_, voter|
-          voter["voter"].merge!(vote: voter["vote"])
-          voter = CongressV3::Legislator.new(voter["voter"])
-          case chamber
-          when "house"
-            representatives << voter
-          when "senate"
-            senators << voter
-          end
-        end
-      end
-    end
-
-    { senate: senators, house: representatives }
+    response
   end
 
   def self.legislator_votes(legislator_id, params={})

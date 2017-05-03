@@ -3,6 +3,10 @@ class CongressV3::Bill
     CongressV3::Request.bills(params)
   end
 
+  def self.find(bill_id)
+    self.all(bill_id: bill_id).results.first
+  end
+
   def self.search(params={})
     CongressV3::Request.bill_search(params)
   end

@@ -12,3 +12,4 @@
 /vcr_cassettes
 *.gem
 .DS_Store
+spec/coverage
