@@ -26,15 +26,15 @@ describe CongressV3::Bill do
 
   describe '#votes' do
     it 'fetches the text of the bill' do
-      VCR.use_cassette('bill_search') do
-        @bill = CongressV3::Bill.search(short_title: "Patient Protection and Affordable Care Act").results.first
+      VCR.use_cassette('bill_find') do
+        @bill = CongressV3::Bill.find('hr3590-111')
       end
 
       VCR.use_cassette('bill_votes') do
         @votes = @bill.votes
       end
 
-      expect(@votes[:house].first).to be_a(CongressV3::Legislator)
+      expect(@votes.results.first).to include(*%w{ voter_ids chamber required result vote_type voted_at })
     end
   end
 
